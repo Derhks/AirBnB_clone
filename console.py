@@ -4,6 +4,10 @@ from models.base_model import BaseModel
 from models import storage
 from models.user import User
 from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
@@ -23,18 +27,30 @@ class HBNBCommand(cmd.Cmd):
         usage: <BaseClass>.<Function>
         """
         Command = arg.split(".")
-        if Command[1] == "all()":
-            return self.do_all(Command[0])
-        if Command[1] == "count()":
-            List = storage.all()
-            print(sum([1 for key in List.keys() if
-                       key.split(".")[0] == Command[0]]))
-        if Command[1][:4] == "show":
-            n_format = "{} {}".format(Command[0], Command[1][6:-2])
-            return self.do_show(n_format)
-        if Command[1][:7] == "destroy":
-            n_format = "{} {}".format(Command[0], Command[1][9:-2])
-            return self.do_destroy(n_format)
+        if len(Command) > 1 and Command[1]:
+            if Command[1].startswith("all()"):
+                return self.do_all(Command[0])
+    
+            elif Command[1].startswith("count()"):
+                List = storage.all()
+                print(sum([1 for key in List.keys() if
+                           key.split(".")[0] == Command[0]]))
+            elif Command[1].startswith("show(") and\
+                 Command[1].endswith(")"):
+                content = Command[1][Command[1].find("(") + 2:\
+                                     Command[1].find(")") - 1]
+                n_format = "{} {}".format(Command[0], content)
+                return self.do_show(n_format)
+            elif Command[1].startswith("destroy(") and\
+                 Command[1].endswith(")"):
+                content = Command[1][Command[1].find("(") + 2:\
+                                     Command[1].find(")") - 1]
+                n_format = "{} {}".format(Command[0], content)
+                return self.do_destroy(n_format)
+            else:
+                cmd.Cmd.default(self, arg)
+        else:
+            cmd.Cmd.default(self, arg)
 
     def do_quit(self, arg):
         """Quits the console
@@ -154,7 +170,6 @@ class HBNBCommand(cmd.Cmd):
         usage: update <BaseModel type> <Object id> <Attribute name> <Value>
         """
         Command = arg.split()
-        print(Command)
         if not Command:
             print("** class name missing **")
         elif Command[0] not in HBNBCommand.class_types:
@@ -171,7 +186,11 @@ class HBNBCommand(cmd.Cmd):
             if instance_id not in objects.keys():
                 print("** no instance found **")
             else:
-                print(type(Command[3]))
+                if Command[3].startswith("\"") and\
+                   Command[3].endswith("\""):
+                    Command[3] = Command[3][1:-1]
+                if Command[3].isnumeric():
+                    Command[3] = int(Command[3])
                 setattr(objects[instance_id], Command[2], Command[3])
                 storage.save()
 
