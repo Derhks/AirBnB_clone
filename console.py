@@ -38,15 +38,14 @@ class HBNBCommand(cmd.Cmd):
                 List = storage.all()
                 print(sum([1 for key in List.keys() if
                            key.split(".")[0] == Command[0]]))
-            elif Command[1].startswith("show(") and\
-                 Command[1].endswith(")"):
-                content = Command[1][Command[1].find("(") + 2:\
+            elif Command[1].startswith("show(") and Command[1].endswith(")"):
+                content = Command[1][Command[1].find("(") + 2:
                                      Command[1].find(")") - 1]
                 n_format = "{} {}".format(Command[0], content)
                 return self.do_show(n_format)
-            elif Command[1].startswith("destroy(") and\
-                 Command[1].endswith(")"):
-                content = Command[1][Command[1].find("(") + 2:\
+            elif Command[1].startswith("destroy(") and Command[1].endswith(
+                    ")"):
+                content = Command[1][Command[1].find("(") + 2:
                                      Command[1].find(")") - 1]
                 n_format = "{} {}".format(Command[0], content)
                 return self.do_destroy(n_format)
