@@ -2,6 +2,10 @@ from json import dump, load
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class FileStorage:
@@ -35,7 +39,6 @@ class FileStorage:
         try:
             with open(FileStorage.__file_path, 'r') as f:
                 Loaded_file = load(f)
-                print("enters")
                 for key in Loaded_file.keys():
                     for Class, instance in Class_type.items():
                         if Loaded_file[key]['__class__'] == Class:
