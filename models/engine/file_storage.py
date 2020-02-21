@@ -18,7 +18,7 @@ class FileStorage:
         return FileStorage.__objects
 
     def new(self, obj):
-        """Saves in the dictionary the value with the object""" 
+        """Saves in the dictionary the value with the object"""
         key = ("{}.{}".format(obj.__class__.__name__, str(obj.id)))
         FileStorage.__objects[key] = obj
 
@@ -33,7 +33,7 @@ class FileStorage:
             dump(dic_copy, f)
 
     def reload(self):
-        """This function loads every dictionary representation of the object""" 
+        """This function loads every dictionary representation of the object"""
         Class_type = {'BaseModel': BaseModel, 'User': User,
                       'State': State}
         try:
