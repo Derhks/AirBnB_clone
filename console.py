@@ -11,6 +11,9 @@ from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
+    """
+
+    """
     prompt = '(hbnb) '
     # class_types = {"BaseModel" : BaseModel}
     class_types = ["BaseModel", "State", "User",
@@ -30,7 +33,7 @@ class HBNBCommand(cmd.Cmd):
         if len(Command) > 1 and Command[1]:
             if Command[1].startswith("all()"):
                 return self.do_all(Command[0])
-    
+
             elif Command[1].startswith("count()"):
                 List = storage.all()
                 print(sum([1 for key in List.keys() if
