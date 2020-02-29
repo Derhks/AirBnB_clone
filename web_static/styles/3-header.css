@@ -3,12 +3,5 @@ header {
     height: 70px;
     width: 100%;
     border-bottom: 1px solid #CCCCCC;
-    position: fixed;
-    top: 0;
-    display: flex;
-    justify-content: left;
-    align-items: center;
     background: url("../images/logo.png") no-repeat 20px;
 }
-
-    
