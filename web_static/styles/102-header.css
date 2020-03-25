@@ -1,0 +1,18 @@
+header {
+	height: 70px;
+	width: 100%;
+	color: white;
+	border-bottom: 1px solid #CCCCCC;
+}
+
+@media (min-width: 300px) and (max-width: 800px) {
+    header {
+	background: url("../images/logo.png") no-repeat 1.7em;
+    }
+}
+
+@media (min-width: 801px) {
+    header {
+	background: url("../images/logo.png") no-repeat 20px;
+    }
+}
